@@ -1,7 +1,6 @@
 const axios = require('axios');
 const CryptoJS = require('crypto-js');
 
-
 const nano = require('nano')('http://admin:1sE7QqOM6w44@localhost:5984');
 
 //Databases
@@ -17,13 +16,13 @@ nano.db
     console.log(error);
   });
 
-getToken();
-
+getToken('schueler');
 /*****Functions ******/
 
-function getToken(username) {
-
-  var token = CryptoJS.HmacSHA1('schueler', 'eb64b3fa40833c1643342aa5fe525665');
+async function getToken(usern) {
+  let tok = CryptoJS.HmacSHA1(usern, await getSecret());
+  console.log({ username: usern, token: tok.toString() });
+  return { username: usern, token: tok };
 }
 
 async function createUser(username, isLehrer) {
@@ -46,7 +45,7 @@ async function getUser(username) {
     let res = await userDB.get(`org.couchdb.user:${username}`);
     return true;
   } catch (error) {
-      return false;
+    return false;
   }
 }
 
