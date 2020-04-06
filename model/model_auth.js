@@ -7,22 +7,34 @@ const nano = require('nano')('http://admin:1sE7QqOM6w44@localhost:5984');
 const sportestDB = nano.db.use('sportest');
 const userDB = nano.db.use('_users');
 
-nano.db
+/* nano.db
   .get('sportest')
   .then(body => {
     console.log(body.db_name);
   })
   .catch(error => {
     console.log(error);
-  });
+  }); */
 
-getToken('schueler');
 /*****Functions ******/
 
 async function getToken(usern) {
   let tok = CryptoJS.HmacSHA1(usern, await getSecret());
-  console.log({ username: usern, token: tok.toString() });
-  return { username: usern, token: tok };
+  tok = tok.toString();
+
+  //Convert to hex for database-per-user
+  let dbn = 'userdb-' + Buffer.from(usern, 'utf8').toString('hex');
+
+  console.log({
+    username: usern,
+    token: tok,
+    dbname: dbn,
+  });
+  return {
+    username: usern,
+    token: tok,
+    dbname: dbn,
+  };
 }
 
 async function createUser(username, isLehrer) {
@@ -57,5 +69,7 @@ async function getSecret() {
   return res.data;
 }
 
-//Convert to hex for database-per-user
-Buffer.from('schueler', 'utf8').toString('hex');
+
+module.exports = {
+  getToken,getUser,createUser
+}
