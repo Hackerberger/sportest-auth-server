@@ -1,7 +1,7 @@
 const axios = require('axios');
 const CryptoJS = require('crypto-js');
 
-const nano = require('nano')('http://admin:1sE7QqOM6w44@localhost:5984');
+const nano = require('nano')('http://admin:1sE7QqOM6w44@51.144.121.173:5984');
 
 //Databases
 const sportestDB = nano.db.use('sportest');
@@ -63,7 +63,7 @@ async function getUser(username) {
 
 async function getSecret() {
   let res = await axios.get(
-    'http://admin:1sE7QqOM6w44@localhost:5984/_node/couchdb@127.0.0.1/_config/couch_httpd_auth/secret',
+    'http://admin:1sE7QqOM6w44@51.144.121.173:5984/_node/couchdb@127.0.0.1/_config/couch_httpd_auth/secret',
   );
 
   return res.data;

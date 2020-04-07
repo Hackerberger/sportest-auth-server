@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/82b6f6f8-d7d5-40b5-a862-8d9551875da2/resourceGroups/RG-Sportest/providers/Microsoft.Web/sites/sportest-auth-server",
+    "appService.deploySubpath": ""
+}
