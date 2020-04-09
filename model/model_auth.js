@@ -1,20 +1,12 @@
 const axios = require('axios');
 const CryptoJS = require('crypto-js');
+const { OAuth2Client } = require('google-auth-library');
 
 const nano = require('nano')('http://admin:1sE7QqOM6w44@51.144.121.173:5984');
 
 //Databases
 const sportestDB = nano.db.use('sportest');
 const userDB = nano.db.use('_users');
-
-/* nano.db
-  .get('sportest')
-  .then(body => {
-    console.log(body.db_name);
-  })
-  .catch(error => {
-    console.log(error);
-  }); */
 
 /*****Functions ******/
 
@@ -69,7 +61,26 @@ async function getSecret() {
   return res.data;
 }
 
+/*** Google Authentication ***/
+const client = new OAuth2Client(
+  //ÄNDERN WENN ANDERER ACCOUNT ZUM AUTHENTIFIZIEREN BENUTZT WIRD
+  '419461260696-531a21v1lv63e72ckd0rts3j72bl2tf5.apps.googleusercontent.com',
+);
+async function verifyUser(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience:
+      '419461260696-531a21v1lv63e72ckd0rts3j72bl2tf5.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
+  });
+  const payload = ticket.getPayload();
+  console.log(payload);
+
+  return payload['email'];
+}
 
 module.exports = {
-  getToken,getUser,createUser
-}
+  getToken,
+  getUser,
+  createUser,
+  verifyUser,
+};

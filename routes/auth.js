@@ -1,20 +1,31 @@
 var express = require('express');
 var router = express.Router();
-const { getToken, getUser, createUser } = require('../model/model_auth');
+const {
+  getToken,
+  getUser,
+  createUser,
+  verifyUser,
+} = require('../model/model_auth');
 
 /* GET home page. */
 router.post('/token', async function (req, res, next) {
-  console.log(req.body)
-  if (req.body.email === undefined) res.status(400).end();
+  if (req.body.email === undefined || req.body.token === undefined)
+    res.status(400).end();
   else {
     if (req.body.email.split('@')[1] == 'htlwienwest.at') {
       try {
-        let username = req.body.email.split('@')[0];
-        if (await getUser(username)) {
-          res.send(await getToken(username));
-        } else {
-          await createUser(username);
-          res.send(await getToken(username));
+        let em = await verifyUser(req.body.token);
+        if (em == req.body.email) {
+          let username = req.body.email.split('@')[0];
+          if (await getUser(username)) {
+            res.send(await getToken(username));
+          } else {
+            await createUser(username);
+            res.send(await getToken(username));
+          }
+        }
+        else{
+          res.send('Account Email does not match: ' + req.body.email).status(401);
         }
       } catch (error) {
         res.send(error).status(500);
