@@ -59,13 +59,13 @@ async function getSecret() {
 /*** Google Authentication ***/
 const client = new OAuth2Client(
   //ÄNDERN WENN ANDERER ACCOUNT ZUM AUTHENTIFIZIEREN BENUTZT WIRD
-  '419461260696-531a21v1lv63e72ckd0rts3j72bl2tf5.apps.googleusercontent.com',
+  '545491340068-hb3lse39ve85bsgsoatc53luofqs6vb7.apps.googleusercontent.com',
 );
 async function verifyUser(token) {
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience:
-      '419461260696-531a21v1lv63e72ckd0rts3j72bl2tf5.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
+      '545491340068-hb3lse39ve85bsgsoatc53luofqs6vb7.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
   });
   const payload = ticket.getPayload();
 
