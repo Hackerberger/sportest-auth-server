@@ -7,7 +7,7 @@ const {
   verifyUser,
 } = require('../model/model_auth');
 
-/* GET home page. */
+/* route to get token. */
 router.post('/token', async function (req, res, next) {
   if (req.body.email === undefined || req.body.token === undefined)
     res.status(400).end();

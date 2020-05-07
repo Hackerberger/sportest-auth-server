@@ -17,11 +17,6 @@ async function getToken(usern) {
   //Convert to hex for database-per-user
   let dbn = 'userdb-' + Buffer.from(usern, 'utf8').toString('hex');
 
-  console.log({
-    username: usern,
-    token: tok,
-    dbname: dbn,
-  });
   return {
     username: usern,
     token: tok,
@@ -73,7 +68,6 @@ async function verifyUser(token) {
       '419461260696-531a21v1lv63e72ckd0rts3j72bl2tf5.apps.googleusercontent.com', // Specify the CLIENT_ID of the app that accesses the backend
   });
   const payload = ticket.getPayload();
-  console.log(payload);
 
   return payload['email'];
 }
