@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5ae6d938a4a64e6685869c1532e047d8.js"
+  "/precache-manifest.c1c2b03f6f66b707f4fae45ee36b06a0.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "sportest"});

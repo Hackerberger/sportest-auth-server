@@ -12,7 +12,8 @@ router.post('/token', async function (req, res, next) {
   if (req.body.email === undefined || req.body.token === undefined)
     res.status(400).end();
   else {
-    if (req.body.email.split('@')[1] == 'htlwienwest.at') {
+    //If special 
+    /* if (req.body.email.split('@')[1] == 'htlwienwest.at') { */
       try {
         let em = await verifyUser(req.body.token);
         if (em == req.body.email) {
@@ -30,9 +31,9 @@ router.post('/token', async function (req, res, next) {
       } catch (error) {
         res.send(error).status(500);
       }
-    } else {
+    /* } else {
       res.send('Unauthorized Email address: ' + req.body.email).status(401);
-    }
+    } */
   }
 });
 
